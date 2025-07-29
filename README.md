@@ -17,7 +17,6 @@ This project analyzes public sentiment on stocks using NLP techniques applied to
 ## Folder Structure
 See each subfolder for detailed roles and instructions.
 
-## Getting Started
 1. Clone this repository
 2. Install dependencies:
     ```bash
@@ -25,6 +24,3 @@ See each subfolder for detailed roles and instructions.
     ```
 3. Navigate to the appropriate module and run your scripts.
 
-## Contributing
-- Fork → Branch → Pull Request
-- Use clear commit messages
