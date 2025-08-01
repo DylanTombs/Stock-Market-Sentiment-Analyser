@@ -8,4 +8,4 @@
 ### Summary on Tasks
 1. A Python file with Strategy using the sentiment trend and financial info  
 2. Analysis on key findings/ adjusting values to improve strategy. 
-
+abcdefg
