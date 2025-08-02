@@ -116,9 +116,9 @@ def train_model(
 
 def get_training_config():
     return {
-        "train_data": "train_dataset.pt",
-        "val_data": "val_dataset.pt",
-        "model_name": "ProsusAI/finbert",
+        "train_data": "train_dataset",
+        "val_data": "val_dataset",
+        "model_name": "trial",
         "output_dir": "./models",
         "epochs": 3,
         "batch_size": 32
