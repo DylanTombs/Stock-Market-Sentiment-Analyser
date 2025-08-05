@@ -17,5 +17,3 @@ news_dataframe['end_date'] = news_dataframe['date'] + timedelta(days=7)
 
 # Rearrange columns to create final formatted DataFrame
 final_news_dataframe = news_dataframe[['stock', 'title', 'date', 'start_date', 'end_date']]
-
-print(final_news_dataframe.head())
