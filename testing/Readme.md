@@ -15,13 +15,11 @@ This section demonstrates testing a **custom trading strategy** using the [Alpac
 ## Features
 
 - Fetch historical market data for a given stock ticker using Alpaca API.
-- Compute short-term and long-term moving averages for strategy signals.
-- Generate simple buy, sell, or hold signals based on moving average crossovers.
+- Generate simple buy, sell, or hold signals based on custom logic.
 - Execute market orders automatically based on generated signals.
 - Configurable:
   - Ticker symbol (e.g., `AAPL`)
   - Timeframe for bars (`1Min`, `5Min`, `1Day`, etc.)
-  - Moving average windows (`short_window`, `long_window`)
   - Trade quantity per order
 - Runs at **one-minute intervals** for active signal testing.
 
@@ -33,21 +31,18 @@ This section demonstrates testing a **custom trading strategy** using the [Alpac
 1. **Fetch historical data**  
    Retrieves the last `N` bars for the specified symbol and timeframe using `api.get_bars()`.
 
-2. **Calculate moving averages**  
-   Computes the short-term and long-term moving averages for the strategy.
+2. **Generate trading signal**  
+   - `BUY` e.g, if short-term MA crosses above long-term MA  
+   - `SELL` e.g, if short-term MA crosses below long-term MA  
+   - `HOLD` e.g, otherwise
 
-3. **Generate trading signal**  
-   - `BUY` if short-term MA crosses above long-term MA  
-   - `SELL` if short-term MA crosses below long-term MA  
-   - `HOLD` otherwise
-
-4. **Place orders**  
+3. **Place orders**  
    Checks account balance, calculates order cost, and submits market orders through Alpaca.
 
-5. **Loop every minute**  
+4. **Loop every minute**  
    The bot continuously fetches new data, recalculates signals, and executes orders.
 
-6. **Example console output**
+5. **Example console output**
   Latest signal: BUY
   Placed BUY order for AAPL
   Latest signal: HOLD
