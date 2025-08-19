@@ -1,6 +1,6 @@
 # Alpaca Custom Trading Bot - Strategy Testing
 
-This section demonstrates testing a **custom trading strategy** using the [Alpaca API](https://alpaca.markets/). The bot fetches historical market data, generates trading signals based on custom logic, and executes real-time trades for a specific ticker. It is designed for **paper trading**, allowing safe testing without risking real capital.
+This section demonstrates testing a **custom trading strategy** using the [Alpaca API](https://alpaca.markets/). The bot fetches historical market data, generates trading signals based on custom logic (that will be updated to a more advanced model in the future), and executes real-time trades for a specific ticker. It is designed for **paper trading**, allowing safe testing without risking real capital.
 
 ---
 
