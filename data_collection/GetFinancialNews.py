@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 # Configuration
-ALPHA_VANTAGE_API_KEY = ''  # Replace with your actual API key
+ALPHA_VANTAGE_API_KEY = 'ZXM9BM6AJ6KOFYBN'  # Replace with your actual API key
 MAX_CALLS_PER_MINUTE = 5  # Free tier limit
 REQUEST_INTERVAL = 60 / MAX_CALLS_PER_MINUTE  # Seconds between requests
 
@@ -143,7 +143,7 @@ def get_price_for_sentiment(stock_cache, stock, article_date, days_before=1, day
     
     # Find price before news (1-2 days before)
     start_price = None
-    for i in range(days_before, days_before + 3):  # Try 1-3 days before
+    for i in range(days_before, days_before + 7):  # Try 1-3 days before
         check_date = article_date - timedelta(days=i)
         if check_date in price_data:
             start_price = price_data[check_date]['close']
@@ -151,7 +151,7 @@ def get_price_for_sentiment(stock_cache, stock, article_date, days_before=1, day
     
     # Find price after news (1-2 days after)
     end_price = None
-    for i in range(days_after, days_after + 3):  # Try 1-3 days after
+    for i in range(days_after, days_after + 7):  # Try 1-3 days after
         check_date = article_date + timedelta(days=i)
         if check_date in price_data:
             end_price = price_data[check_date]['close']
