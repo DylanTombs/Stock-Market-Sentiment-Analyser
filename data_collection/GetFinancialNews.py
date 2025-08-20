@@ -5,6 +5,13 @@ import requests
 import os
 import json
 from pathlib import Path
+from pymongo import MongoClient
+
+# Database connection 
+
+client = MongoClient("mongodb+srv://USERNAME:PASSWORD@database.pohgsdb.mongodb.net/")
+db = client['dataset']
+collection = db['training_dataset']
 
 # Configuration
 ALPHA_VANTAGE_API_KEY = ''  # Replace with your actual API key
@@ -284,6 +291,20 @@ def generate_processed_csv(news_df, stock_cache, interim=False):
     
     # Create DataFrame
     results_df = pd.DataFrame(results)
+
+    #Create threshold-based label
+    def label_by_threshold(pct):
+        if pd.isna(pct):
+            return None
+        if pct > 0.5:
+            return 1
+        elif pct < -0.5:
+            return -1
+        else:
+            return 0
+
+    results_df['price_change_label'] = results_df['price_change_pct'].apply(label_by_threshold)
+    
     
     # Save to main output path
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
@@ -298,8 +319,18 @@ def generate_processed_csv(news_df, stock_cache, interim=False):
         backup_path = f"{BACKUP_DIR}/processed_training_final_{timestamp}.csv"
         results_df.to_csv(backup_path, index=False)
         print(f"Final backup saved to: {backup_path}")
+
+     # Insert updated DataFrame into MongoDB
+    try:
+        records = results_df.to_dict('records')
+        collection.insert_many(records)
+        print(f"Inserted {len(records)} records into MongoDB collection '{collection.name}'")
+    except Exception as e:
+        print(f"Error inserting into MongoDB: {e}")
     
     return results_df
+    
+
     
         
     # Generate final processed CSV with all available data
