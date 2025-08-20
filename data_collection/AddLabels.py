@@ -25,7 +25,7 @@ df.to_csv(OUTPUT_CSV_PATH, index=False)
 print(f"CSV file updated with new column 'price_change_label'.")
 
 # Step 3: Connect to MongoDB Atlas
-client = MongoClient("mongodb+srv://barnardwilliam:1234567890@database.pohgsdb.mongodb.net/")
+client = MongoClient("mongodb+srv://USERNAME:PASSWORD@database.pohgsdb.mongodb.net/")
 db = client['dataset']          # Replace with your database name
 collection = db['training_dataset']    # Replace with your collection name
 
