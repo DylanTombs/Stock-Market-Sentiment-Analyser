@@ -9,12 +9,15 @@ from pymongo import MongoClient
 
 # Database connection 
 
-client = MongoClient("mongodb+srv://USERNAME:PASSWORD@database.pohgsdb.mongodb.net/")
+mongodb_username = ""
+mongodb_password = ""
+
+client = MongoClient(f"mongodb+srv://{mongodb_username}:{mongodb_password}@database.pohgsdb.mongodb.net/")
 db = client['dataset']
 collection = db['training_dataset']
 
 # Configuration
-ALPHA_VANTAGE_API_KEY = ''  # Replace with your actual API key
+ALPHA_VANTAGE_API_KEY = 'ZXM9BM6AJ6KOFYBN'  # Replace with your actual API key
 MAX_CALLS_PER_MINUTE = 5  # Free tier limit
 REQUEST_INTERVAL = 60 / MAX_CALLS_PER_MINUTE  # Seconds between requests
 
@@ -170,6 +173,10 @@ def main():
     # Validate API key
     if not ALPHA_VANTAGE_API_KEY:
         print("ERROR: Please set your ALPHA_VANTAGE_API_KEY")
+        return
+    
+    if not (mongodb_username and mongodb_password):
+        print("ERROR: Please set your mongodb credentials")
         return
     
     # Load sentiment data
