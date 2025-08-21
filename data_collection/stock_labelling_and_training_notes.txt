@@ -1,0 +1,34 @@
+Stock News Labeling and Training Notes
+
+1.  Formula for Price Change and Labeling
+    -   Forward return: r = (end_close - start_close) / start_close
+
+    -   Labels: Buy (1): r > +threshold Hold (0): -threshold <= r <=
+        +threshold Sell (-1): r < -threshold
+2.  Why Thresholds are Used
+    -   Daily returns are noisy, so small changes are often random.
+    -   Thresholds filter out insignificant moves and focus only on
+        meaningful price changes.
+3.  Tweaking the Threshold
+    -   Common daily threshold: ±1% (0.01)
+    -   Tighter thresholds (e.g. 0.5%) = more signals, but noisier
+        labels
+    -   Wider thresholds (e.g. 2–3%) = fewer signals, but more reliable
+        labels
+4.  Adjusting the Horizon (Days Before/After)
+    -   start_close: closing price before the news article
+    -   end_close: closing price after the news article
+    -   Horizons can be varied:
+        -   1-day forward return: very noisy
+        -   3-day forward return: balances noise and reaction
+        -   5-day forward return: captures more delayed effects
+    -   Larger horizons require wider thresholds (e.g. 2% for 3-day, 3%
+        for 5-day).
+5.  Training the Model
+    -   Do NOT use random splits (avoids lookahead bias).
+    -   Use time-based splits:
+        -   Training: earliest period (e.g. 2016–2020)
+        -   Validation: middle block (e.g. 2021)
+        -   Test: most recent block (e.g. 2022–2023)
+    -   This simulates a real trading scenario where you predict the
+        future from the past.
