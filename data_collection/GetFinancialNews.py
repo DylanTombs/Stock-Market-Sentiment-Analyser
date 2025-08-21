@@ -300,17 +300,21 @@ def generate_processed_csv(news_df, stock_cache, interim=False):
     results_df = pd.DataFrame(results)
 
     #Create threshold-based label
-    def label_by_threshold(pct):
-        if pd.isna(pct):
-            return None
-        if pct > 0.5:
+    def compute_label(start_close, end_close, threshold=0.01):
+        """Return 1 (buy), -1 (sell), or 0 (hold) based on percentage return."""
+        if start_close is None or end_close is None:
+            return None  # Skip if missing data
+        ret = (end_close - start_close) / start_close
+        if ret > threshold:
             return 1
-        elif pct < -0.5:
+        elif ret < -threshold:
             return -1
         else:
             return 0
+        
+    label = compute_label(start_close, end_close)
 
-    results_df['price_change_label'] = results_df['price_change_pct'].apply(label_by_threshold)
+    results_df['price_change_label'] = label
     
     
     # Save to main output path
