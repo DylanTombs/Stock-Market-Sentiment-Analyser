@@ -7,7 +7,7 @@ from transformers import BertTokenizer, AutoModelForSequenceClassification, Adam
 from sklearn.metrics import accuracy_score, f1_score
 from tqdm import tqdm
 
-from data_collection.DataSet import loadDataSet
+from NPL_model.DataCollection import loadDataSet
 
 def set_seed(seed_val):
     random.seed(seed_val)
