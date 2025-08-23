@@ -17,7 +17,7 @@ db = client['dataset']
 collection = db['training_dataset']
 
 # Configuration
-ALPHA_VANTAGE_API_KEY = 'ZXM9BM6AJ6KOFYBN'  # Replace with your actual API key
+ALPHA_VANTAGE_API_KEY = ''  # Replace with your actual API key
 MAX_CALLS_PER_MINUTE = 5  # Free tier limit
 REQUEST_INTERVAL = 60 / MAX_CALLS_PER_MINUTE  # Seconds between requests
 
