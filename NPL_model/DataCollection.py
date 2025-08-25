@@ -4,6 +4,9 @@ import torch
 from sklearn.model_selection import train_test_split
 import numpy as np
 
+mongodb_username = ""
+mongodb_password = ""
+
 class SentimentDataset(Dataset):
     def __init__(self, texts, labels, tokenizer, max_length=512):
         self.texts = texts
@@ -34,9 +37,11 @@ class SentimentDataset(Dataset):
 
 def loadDataSet(tokenizer, batch_size=32):
     # Connect to MongoDB
-    client = MongoClient('mongodb://localhost:27017/')
-    db = client['your_database_name']
-    collection = db['your_collection_name']
+
+
+    client = MongoClient(f"mongodb+srv://{mongodb_username}:{mongodb_password}@database.pohgsdb.mongodb.net/")
+    db = client['dataset']
+    collection = db['training_dataset']
     
     # Fetch data from MongoDB
     cursor = collection.find({})
@@ -74,3 +79,8 @@ def loadDataSet(tokenizer, batch_size=32):
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
     
     return train_loader, val_loader
+
+
+
+
+
