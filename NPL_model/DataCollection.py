@@ -4,8 +4,8 @@ import torch
 from sklearn.model_selection import train_test_split
 import numpy as np
 
-mongodb_username = ""
-mongodb_password = ""
+mongodb_username = "dylantombs2006"
+mongodb_password = "1234567890"
 
 class SentimentDataset(Dataset):
     def __init__(self, texts, labels, tokenizer, max_length=512):
@@ -44,7 +44,14 @@ def loadDataSet(tokenizer, batch_size=32):
     collection = db['training_dataset']
     
     # Fetch data from MongoDB
-    cursor = collection.find({})
+    cursor = collection.find({
+        "price_change_label": { "$in": [-1, 0, 1] },
+        "price_change": { "$type": "number", "$not": {"$eq": float('nan')} },
+        "start_close": { "$type": "number", "$not": {"$eq": float('nan')} },
+        "end_close": { "$type": "number", "$not": {"$eq": float('nan')} }
+    })
+
+
     
     texts = []
     labels = []
@@ -54,10 +61,7 @@ def loadDataSet(tokenizer, batch_size=32):
             texts.append(doc['title'])
             
             # Get the price_change_label (already numerical: -1, 0, 1)
-            price_label = doc.get('price_change_label', 0)
-            
-            # Convert -1, 0, 1 to 0, 1, 2 for PyTorch (must be non-negative integers)
-            label = price_label + 1  # This maps -1->0, 0->1, 1->2
+            label = doc['price_change_label'] + 1
             
             labels.append(label)
     

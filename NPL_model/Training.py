@@ -3,11 +3,12 @@ import random
 import numpy as np
 import torch
 from sklearn.model_selection import train_test_split
-from transformers import BertTokenizer, AutoModelForSequenceClassification, AdamW, get_linear_schedule_with_warmup
+from transformers import BertTokenizer, AutoModelForSequenceClassification, get_linear_schedule_with_warmup
 from sklearn.metrics import accuracy_score, f1_score
 from tqdm import tqdm
+from torch.optim import AdamW
 
-from NPL_model.DataCollection import loadDataSet
+from DataCollection import loadDataSet
 
 def set_seed(seed_val):
     random.seed(seed_val)
